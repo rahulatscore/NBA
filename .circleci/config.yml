@@ -36,17 +36,4 @@ workflows:
   version: 2
   workflow:
     jobs:
-    - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: 
-                - master
-            steps:
-              - run:
-                  name: Initial build
-                  command: ./gradlew clean assembleRelease --no-daemon --stacktrace
-              - store_artifacts:
-                  path: app/build/outputs/apk/
-                  destination: apks/ 
+    - build
