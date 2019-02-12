@@ -48,12 +48,16 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/
           destination: apks/ 
-  
+  manual_build:
+    type: approval
 workflows:
   version: 2
   workflow:
     jobs:
-      - dev_build
+      - manual_build
+      - dev_build:
+          requires:
+            - manual_build
       - rc_build:
           requires:
             - dev_build
