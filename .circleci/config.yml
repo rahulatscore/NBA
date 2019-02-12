@@ -54,14 +54,14 @@ workflows:
   version: 2
   workflow:
     jobs:
-    - dev_build
+      - dev_build
         requires:
           - hold
         filters:
           branches:
             only: 
               - master
-    - rc_build:
+      - rc_build:
         requires:
           - dev_build
         filters:
