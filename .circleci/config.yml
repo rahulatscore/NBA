@@ -50,6 +50,10 @@ jobs:
           destination: apks/ 
   manual_build:
     type: approval
+    steps:
+      - run:
+          name: "Manual Step"
+          command: echo 'Please start build manually.'
 workflows:
   version: 2
   workflow:
