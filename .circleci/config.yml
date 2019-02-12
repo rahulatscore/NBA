@@ -56,10 +56,6 @@ workflows:
     jobs:
       - hold
       - dev_build
-          filters:
-            branches:
-              only: 
-                - master
       - rc_build:
           requires:
             - dev_build
