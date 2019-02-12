@@ -54,9 +54,8 @@ workflows:
   version: 2
   workflow:
     jobs:
+      - hold
       - dev_build
-          requires:
-            - hold
           filters:
             branches:
               only: 
