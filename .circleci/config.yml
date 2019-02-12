@@ -55,16 +55,16 @@ workflows:
   workflow:
     jobs:
       - dev_build
-        requires:
-          - hold
-        filters:
-          branches:
-            only: 
-              - master
+          requires:
+            - hold
+          filters:
+            branches:
+              only: 
+                - master
       - rc_build:
-        requires:
-          - dev_build
-        filters:
-          branches:
-            only: 
-              - master
+          requires:
+            - dev_build
+          filters:
+            branches:
+              only: 
+                - master
