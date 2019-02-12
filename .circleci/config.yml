@@ -57,7 +57,7 @@ workflows:
       - dev_build
       - rc_build:
           requires:
-            - hold
+            - dev_build
           filters:
             branches:
               only: 
