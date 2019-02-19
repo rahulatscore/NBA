@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  dev_build:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-28
@@ -19,7 +19,9 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Run Tests
-          command: ./gradlew lint test
+          command: 
+            set -e
+            ./gradlew lint test
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
           path: app/build/reports
           destination: reports
@@ -31,8 +33,8 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/
           destination: apks/    
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples 
-  deploy:
+      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples bb
+  rc_build:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-28
@@ -48,15 +50,20 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/
           destination: apks/ 
+          
 workflows:
   version: 2
   workflow:
     jobs:
-    - build
-    - deploy:
-        requires:
-          - build
-        filters:
-          branches:
-            only: 
-              - master
+      - manual_build:
+          type: approval
+      - dev_build:
+          requires:
+            - manual_build
+      - rc_build:
+          requires:
+            - dev_build
+          filters:
+            branches:
+              only: 
+                - master

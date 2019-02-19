@@ -13,7 +13,7 @@ class ExampleUnitTest {
 
   @Test
   fun addition_isCorrect() {
-    assertEquals(4, 2 + 2)
+    assertEquals(5, 2 + 2)
 
     val team = TeamData.Team(1, 10, 10, "Full Name")
     val team2 = TeamData.Team(1, 10, 10, "Full Name")
